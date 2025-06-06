@@ -9,6 +9,6 @@ def call(String image) {
     sh """
     curl -LO ${downloadUrl}
     tar -xzf ${actualVersion.name}
-    ./trivy -q image --input ${image} --cache-dir /tmp/trivy-cache
-    """
+    """, label: 'Download trivy'
+    sh "./trivy -q image --input ${image} --cache-dir /tmp/trivy-cache", label: 'Scanning image'
 }
