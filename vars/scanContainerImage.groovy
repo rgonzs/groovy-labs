@@ -9,5 +9,6 @@ def call() {
     sh """
     curl -LO ${downloadUrl}
     tar -xzf ${actualVersion.name}
+    ./trivy -q image --input ${image} --cache-dir /tmp/trivy-cache
     """
 }
