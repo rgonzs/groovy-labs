@@ -1,6 +1,6 @@
 def call() {
-    String response = new URL('https://api.github.com/repos/aquasecurity/trivy/releases/latest').getText()
-    def versions = readJSON text: response
+    String response = httpRequest url: 'https://api.github.com/repos/aquasecurity/trivy/releases/latest'
+    def versions = readJSON text: response.content
     Map actualVersion = versions.assets.find { item ->
         return item.name =~ /Linux-64bit.tar.gz/
     }
