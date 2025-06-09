@@ -8,8 +8,8 @@ def call(String image) {
     String name = actualVersion.name
     sh script: """
     curl -LO $downloadUrl
-    mkdir -p "$(pwd)/trivy"
-    tar -xzf ${actualVersion.name} -C "$(pwd)/trivy"
+    mkdir -p $(pwd)/trivy
+    tar -xzf ${actualVersion.name} -C $(pwd)/trivy
     """, label: 'Download trivy'
     sh script: "./trivy/trivy -q image --input ${image} --cache-dir /tmp/trivy-cache", label: 'Scanning image'
 }
