@@ -7,7 +7,7 @@ def call(String image) {
     String downloadUrl = actualVersion.browser_download_url
     String name = actualVersion.name
     sh script: """
-    curl -LO ${downloadUrl}
+    curl -LO $downloadUrl
     mkdir -p "$(pwd)/trivy"
     tar -xzf ${actualVersion.name} -C "$(pwd)/trivy"
     """, label: 'Download trivy'
