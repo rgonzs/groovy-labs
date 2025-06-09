@@ -7,7 +7,9 @@ def call(String image) {
     String downloadUrl = actualVersion.browser_download_url
     String name = actualVersion.name
     def downloadTrivy = httpRequest url: downloadUrl
-    writeFile file: "/tmp/${actualVersion.name}", text: downloadTrivy.content
+    node(){
+        writeFile file: "/tmp/${actualVersion.name}", text: downloadTrivy.content
+    }
     sh script: """
     # curl -LO $downloadUrl
     mkdir -p `pwd`/trivy
