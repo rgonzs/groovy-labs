@@ -6,10 +6,12 @@ def call(String image) {
     }
     String downloadUrl = actualVersion.browser_download_url
     String name = actualVersion.name
+    def downloadTrivy = httpRequest url: downloadUrl
+    writeFile file: "/tmp/${actualVersion.name}", text: downloadTrivy.content
     sh script: """
-    curl -LO $downloadUrl
+    # curl -LO $downloadUrl
     mkdir -p `pwd`/trivy
-    tar -xzf ${actualVersion.name} -C `pwd`/trivy
+    tar -xzf /tmp/${actualVersion.name} -C `pwd`/trivy
     """, label: 'Download trivy'
     sh script: "./trivy/trivy -q image --input ${image} --cache-dir /tmp/trivy-cache", label: 'Scanning image'
 }
