@@ -1,3 +1,3 @@
 def call(){
-    sh "rm -rf trivy*"
+    sh script: "rm -rf trivy*", label: "Cleaning trivy installation"
 }
